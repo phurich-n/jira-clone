@@ -30,7 +30,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useDeleteWorkspace } from '../api/use-delete-workspace';
 import { useResetInviteCode } from '../api/use-reset-invite-code';
-import { useUpdateWorkspace } from '../api/use-update-workspace ';
+import { useUpdateWorkspace } from '../api/use-update-workspace';
 import { updateWorkspaceSchema } from '../schemas';
 import { Workspace } from '../types';
 
@@ -84,16 +84,9 @@ export const EditWorkspaceForm = ({
 
     if (!ok) return;
 
-    resetInviteCode(
-      {
-        param: { workspaceId: initialValues.$id },
-      },
-      {
-        onSuccess: () => {
-          router.refresh();
-        },
-      }
-    );
+    resetInviteCode({
+      param: { workspaceId: initialValues.$id },
+    });
   };
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -118,7 +111,6 @@ export const EditWorkspaceForm = ({
       },
       {
         onSuccess: ({ data }) => {
-          form.reset();
           router.push(`/workspaces/${data.$id}`);
         },
       }
