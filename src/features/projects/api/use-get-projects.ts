@@ -15,7 +15,7 @@ export const useGetProjects = ({ workspaceId }: UseGetProjectsProps) => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch workspaces');
+        throw new Error('Failed to fetch projects');
       }
 
       const { data } = await response.json();
