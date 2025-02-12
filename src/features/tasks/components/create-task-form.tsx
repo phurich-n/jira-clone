@@ -53,6 +53,7 @@ export const CreateTaskForm = ({
     resolver: zodResolver(createTaskSchema.omit({ workspaceId: true })),
     defaultValues: {
       workspaceId,
+      name: '',
     },
   });
 
@@ -62,6 +63,7 @@ export const CreateTaskForm = ({
       {
         onSuccess: () => {
           form.reset();
+          onCancel?.();
           // Redirect to the new task page
         },
       }
@@ -87,11 +89,7 @@ export const CreateTaskForm = ({
                   <FormItem>
                     <FormLabel>Task Name</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="Enter task name"
-                        disabled={isPending}
-                      />
+                      <Input {...field} placeholder="Enter task name" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
