@@ -8,6 +8,7 @@ import { DottedSeparator } from '@/components/dotted-separator';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
+import { useProjectId } from '@/features/projects/hooks/use-project-id';
 import { useWorkspaceId } from '@/features/workspaces/hooks/use-workspace-id';
 
 import { useBulkUpdateTasks } from '../api/use-bulk-update-tasks';
@@ -33,13 +34,14 @@ export const TaskViewSwitcher = ({
     defaultValue: 'table',
   });
   const workspaceId = useWorkspaceId();
+  const paramProjectId = useProjectId();
   const { open } = useCreateTaskModal();
 
   const { mutate: bulkUpdate } = useBulkUpdateTasks();
 
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasks({
     workspaceId,
-    projectId,
+    projectId: paramProjectId || projectId,
     status,
     assigneeId,
     dueDate,

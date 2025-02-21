@@ -9,6 +9,7 @@ import workspaces from '@/features/workspaces/server/route';
 
 const app = new Hono().basePath('/api');
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const routes = app
   .route('/auth', auth)
   .route('/members', members)
@@ -21,5 +22,4 @@ export const POST = handle(app);
 export const PATCH = handle(app);
 export const DELETE = handle(app);
 
-export default routes;
 export type AppType = typeof routes;

@@ -333,7 +333,7 @@ const app = new Hono()
     async (c) => {
       const databases = c.get('databases');
       const user = c.get('user');
-      const { tasks } = await c.req.valid('json');
+      const { tasks } = c.req.valid('json');
 
       const tasksToUpdate = await databases.listDocuments<Task>(
         DATABASE_ID,
@@ -356,7 +356,11 @@ const app = new Hono()
         );
       }
 
-      const workspaceId = workspaceIds.values().next().value as string;
+      const workspaceId = workspaceIds.values().next().value;
+
+      if (!workspaceId) {
+        return c.json({ error: 'Workspace ID is required' }, 400);
+      }
 
       const member = await getMember({
         databases,
